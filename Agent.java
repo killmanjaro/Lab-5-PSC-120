@@ -93,6 +93,40 @@ public class Agent implements Steppable {
 	 * 
 	 * }
 	 */
+	public Strategy getStrategyPAVLOV(Agent opponent, Agent agent) {
+        Triple m = memory.getLastMemory(opponent);
+        Triple n = memory.getLastMemory(agent);
+        //recalls its own and opponent's last strategy if present
+        if(m == null) {//no memory of opponent
+            return Strategy.COOPERATOR;
+         }
+        switch(m.opponentStrategy) {
+        default: //default is redundant but I didn't want to deal with the error messages
+				// can remove later if we want
+        	System.out.println("PAVLOV DEFAULT ERROR"); 
+        	return Strategy.COOPERATOR;
+        case COOPERATOR: //opponent cooperated
+        	switch(n.myStrategy) {
+        	case COOPERATOR: //agent cooperated
+            	return Strategy.COOPERATOR; //continue to cooperate 
+        	case DEFECTOR://agent defected
+            	return Strategy.DEFECTOR; //continue to defect
+        	default:
+        		System.out.println("PAVLOV DEFAULT ERROR");
+            	return Strategy.COOPERATOR;
+            }
+        case DEFECTOR: //opponent defected
+        	switch(n.myStrategy) {
+        	case COOPERATOR: //agent cooperated
+            	return Strategy.DEFECTOR; //switch to defect 
+        	case DEFECTOR://agent defected
+            	return Strategy.COOPERATOR; //switch to cooperate
+        	default:
+        		System.out.println("PAVLOV DEFAULT ERROR");
+            	return Strategy.COOPERATOR;
+        	}
+        }
+     }
 
 	/**
 	 * Calculates an agent's payoff given the strategy it played and the strategy of
