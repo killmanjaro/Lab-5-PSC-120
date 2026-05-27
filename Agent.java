@@ -49,8 +49,17 @@ public class Agent implements Steppable {
 		} else {
 			age = 0;//when born from another agent
 		}
-		//TODO: create memory for memory agents with a switch statement.
-
+		// Create memory only for strategies that require it
+		switch (strategy) {
+		case TFT_MOBILE:
+		case TFT_STATIONARY:
+		case PAVLOV_MOBILE:
+		case PAVLOV_STATIONARY:
+			memory = new Memory(state.memorySize);
+			break;
+		default:
+			break; // no memory needed for other strategies
+		}
 	}
 
 	/**
@@ -69,64 +78,71 @@ public class Agent implements Steppable {
 			return Strategy.COOPERATOR;
 		case WALKAWAY_DEFECTOR:
 			return Strategy.DEFECTOR;
-
-			//TODO:See lab for instructions to complete
+		case TFT_MOBILE:    // fall through
+		case TFT_STATIONARY:
+			return getStrategyTFT(opponent);
+		case PAVLOV_MOBILE:    // fall through
+		case PAVLOV_STATIONARY:
+			return getStrategyPAVLOV(opponent);
 
 		default: //just in case there are no matches, return cooperate, which should not happen
 			return Strategy.COOPERATOR;
 		}
 	}
 
-	//TODO:See lab for instructions to completeUncomment the block below and see lab instructions to 
-	//complete getStrategyTFT and getStrategyPAVLOV
-
-	/*
-	 * public Strategy getStrategyTFT(Agent opponent) {
-	 * 
-	 * See lab for instructions to complete
-	 * 
-	 * }
-	 * 
-	 * public Strategy getStrategyPAVLOV(Agent opponent) {
-	 * 
-	 * See lab for instructions to complete
-	 * 
-	 * }
+	/**
+	 * TFT: cooperate on first meeting; thereafter mirror the opponent's last move.
 	 */
-	public Strategy getStrategyPAVLOV(Agent opponent, Agent agent) {
-        Triple m = memory.getLastMemory(opponent);
-        Triple n = memory.getLastMemory(agent);
-        //recalls its own and opponent's last strategy if present
-        if(m == null) {//no memory of opponent
-            return Strategy.COOPERATOR;
-         }
-        switch(m.opponentStrategy) {
-        default: //default is redundant but I didn't want to deal with the error messages
-				// can remove later if we want
-        	System.out.println("PAVLOV DEFAULT ERROR"); 
-        	return Strategy.COOPERATOR;
-        case COOPERATOR: //opponent cooperated
-        	switch(n.myStrategy) {
-        	case COOPERATOR: //agent cooperated
-            	return Strategy.COOPERATOR; //continue to cooperate 
-        	case DEFECTOR://agent defected
-            	return Strategy.DEFECTOR; //continue to defect
-        	default:
-        		System.out.println("PAVLOV DEFAULT ERROR");
-            	return Strategy.COOPERATOR;
-            }
-        case DEFECTOR: //opponent defected
-        	switch(n.myStrategy) {
-        	case COOPERATOR: //agent cooperated
-            	return Strategy.DEFECTOR; //switch to defect 
-        	case DEFECTOR://agent defected
-            	return Strategy.COOPERATOR; //switch to cooperate
-        	default:
-        		System.out.println("PAVLOV DEFAULT ERROR");
-            	return Strategy.COOPERATOR;
-        	}
-        }
-     }
+	public Strategy getStrategyTFT(Agent opponent) {
+		Triple m = memory.getLastMemory(opponent);
+		if (m == null) { // no memory of opponent — cooperate by default
+			return Strategy.COOPERATOR;
+		}
+		switch (m.opponentStrategy) {
+		case COOPERATOR: // opponent cooperated last time -> cooperate
+			return Strategy.COOPERATOR;
+		case DEFECTOR:   // opponent defected last time -> defect
+			return Strategy.DEFECTOR;
+		default:         // fallback (should not occur)
+			return Strategy.COOPERATOR;
+		}
+	}
+
+	/**
+	 * PAVLOV (Win-Stay, Lose-Shift):
+	 *   - No memory -> cooperate.
+	 *   - Opponent cooperated -> repeat own last move (win-stay).
+	 *   - Opponent defected  -> switch own last move (lose-shift).
+	 */
+	public Strategy getStrategyPAVLOV(Agent opponent) {
+		Triple m = memory.getLastMemory(opponent);
+		if (m == null) { // no memory of opponent — cooperate by default
+			return Strategy.COOPERATOR;
+		}
+		switch (m.opponentStrategy) {
+		case COOPERATOR: // opponent cooperated — stay with whatever I played
+			switch (m.myStrategy) {
+			case COOPERATOR:
+				return Strategy.COOPERATOR;
+			case DEFECTOR:
+				return Strategy.DEFECTOR;
+			default:
+				return Strategy.COOPERATOR;
+			}
+		case DEFECTOR: // opponent defected — shift to the opposite of what I played
+			switch (m.myStrategy) {
+			case COOPERATOR: // I cooperated but opponent defected -> switch to defect
+				return Strategy.DEFECTOR;
+			case DEFECTOR:   // I defected and opponent defected -> switch to cooperate
+				return Strategy.COOPERATOR;
+			default:
+				return Strategy.COOPERATOR;
+			}
+		default:
+			return Strategy.COOPERATOR;
+		}
+	}
+
 
 	/**
 	 * Calculates an agent's payoff given the strategy it played and the strategy of
@@ -163,11 +179,17 @@ public class Agent implements Steppable {
 			break;
 		}
 		this.played = true;
-		//TODO: Good place to add code for remembering an opponent. An agent that
-		// is TFT or PAVLOV must remember the opponent it played.
-		//You could use a switch of if-then statement to allow only TFT and PAPLOV strategies
-		//to update their memory. 
-		// memory.storeMemory(opponent, myOpponentStrategy, myStrategy);
+		// Only TFT and PAVLOV agents need to remember their opponents
+		switch (strategy) {
+		case TFT_MOBILE:
+		case TFT_STATIONARY:
+		case PAVLOV_MOBILE:
+		case PAVLOV_STATIONARY:
+			memory.storeMemory(opponent, myOpponentStrategy, myStrategy);
+			break;
+		default:
+			break;
+		}
 
 		return myOpponentStrategy;
 	}

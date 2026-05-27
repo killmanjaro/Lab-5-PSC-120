@@ -5,8 +5,11 @@ public enum Strategy {
 	COOPERATOR (1.0), //not we also assign a double to each strategy
 	DEFECTOR (2.0),
 	WALKAWAY_COOPERATOR (3.0),
-	WALKAWAY_DEFECTOR (4.0);
-	//TODO: Add other strategies constants
+	WALKAWAY_DEFECTOR (4.0),
+	TFT_MOBILE (5.0),
+	TFT_STATIONARY (6.0),
+	PAVLOV_MOBILE (7.0),
+	PAVLOV_STATIONARY (8.0);
 	/**
 	 * This defines the strategy id
 	 */
@@ -23,4 +26,3 @@ public enum Strategy {
 		return id;
 	}
 }
-
