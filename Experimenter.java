@@ -48,9 +48,21 @@ public class Experimenter extends Observer {
 			case WALKAWAY_DEFECTOR:
 				walkawaysD++;
 				break;
-			
-			 //TODO:You need to add cases for four new strategies added for this lab
-			
+			case TFT_MOBILE:
+			    tftm++;
+			    break;
+
+			case TFT_STATIONARY:
+			    tfts++;
+			    break;
+
+			case PAVLOV_MOBILE:
+			    pavlovm++;
+			    break;
+
+			case PAVLOV_STATIONARY:
+			    pavlovs++;
+			    break;		
 			}
 		}
 	}
@@ -66,9 +78,10 @@ public class Experimenter extends Observer {
 		defectors = 0;
 		walkaways = 0;
 		walkawaysD = 0;
-		
-		 //TODO:You need to reset the new strategy variables we added to 0
-		 
+		tftm = 0;
+		tfts = 0;
+		pavlovm = 0;
+		pavlovs = 0;
 		return true;
 	}
 	
@@ -85,8 +98,10 @@ public class Experimenter extends Observer {
 		data.add(defectors/total);
 		data.add(walkaways/total);
 		data.add(walkawaysD/total);
-		
-		 //TODO: You need to add to the data the four strategy variables that we added for this lab, just like the previous four
+		data.add(tftm/total);
+		data.add(tfts/total);
+		data.add(pavlovm/total);
+		data.add(pavlovs/total);
 		 
 		return false;
 	}
@@ -119,8 +134,13 @@ public class Experimenter extends Observer {
 		}
 	}
 	
-	public void strategyDistribution(Environment state) {
-		//TODO
+	public void strategyDistribution() {
+		Bag agents = state.sparseSpace.getAllObjects();
+	    double[] data = new double[agents.numObjs];
+	    for(int i = 0; i < agents.numObjs; i++) {
+	        Agent a = (Agent) agents.objs[i];
+	        data[i] = a.strategy.id();
+	    }
 	}
 
 	public void step(SimState state) {
