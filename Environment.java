@@ -325,10 +325,18 @@ public class Environment extends SimStateSweep {
 		if(_walkawayCooperators > 0) {
 			mutationList.add(Strategy.WALKAWAY_COOPERATOR);
 		}
-		if(_walkawayDefectors > 0) {
-			mutationList.add(Strategy.WALKAWAY_DEFECTOR);
+		if(_tftMobile > 0) {
+			mutationList.add(Strategy.TFT_MOBILE);
 		}
-		
+		if(_tftStationary > 0) {
+			mutationList.add(Strategy.TFT_STATIONARY);
+		}
+		if(_pavlovMobile > 0) {
+			mutationList.add(Strategy.PAVLOV_MOBILE);
+		}
+		if(_pavlovStationary  > 0) {
+			mutationList.add(Strategy.PAVLOV_STATIONARY);
+		}
 		
 		  //TODO:fill in the if then statements for TFTM, TFTS, PAVLOVM, and PAVLOVS
 		
@@ -407,10 +415,7 @@ public class Environment extends SimStateSweep {
 			sparseSpace.setObjectLocation(agent,random.nextInt(gridWidth), random.nextInt(gridHeight));
 			agent.colorByStrategy(agent.strategy, this, agent);
 		}
-		//TODO: Uncomment this section once you have add TFTM, TFTS, PAVLOVM, and PAVLOVS to Strategy.java
-		//There is a simple error in the code below that you will need to fix for it to run!
-		/*
-		 for(int i=0;i<this._tftMobile;i++) {
+		for(int i=0;i<this._tftMobile;i++) {
 			Int2D location;
 			if(!this.groups_or_patches)
 				location = uniqueXY();
@@ -470,8 +475,6 @@ public class Environment extends SimStateSweep {
 			sparseSpace.setObjectLocation(agent,random.nextInt(gridWidth), random.nextInt(gridHeight));
 			agent.colorByStrategy(agent.strategy, this, agent);
 		}
-		
-		*/
 		makeMutationList();//makes the list of possible mutations based on whether there are initial agents > 0 for a strategy
 	}
 
