@@ -302,20 +302,26 @@ public class Agent implements Steppable {
 	 */
 
 	public void play(Environment state) {
-		switch (strategy) {
-		case COOPERATOR:
-			; //skip to the next
-		case DEFECTOR:
-			mobileStrategy(state); //both COOPERATORs and DEFECTORs use the mobileStrategy
-			break;
-		case WALKAWAY_COOPERATOR:
-			; //skip to the next
-		case WALKAWAY_DEFECTOR: //both WALKAWAY_COOPERATORs and WALKAWAY_DEFECTORs use the walkawayStrategy
-			walkawayStrategy(state);
-			break;
 
-			//TODO: See lab on instructions how to complete this method.
-		}
+	    switch (strategy) {
+
+	    case COOPERATOR:
+	    case DEFECTOR:
+	    case TFT_MOBILE:
+	    case PAVLOV_MOBILE:
+	        mobileStrategy(state);
+	        break;
+
+	    case WALKAWAY_COOPERATOR:
+	    case WALKAWAY_DEFECTOR:
+	        walkawayStrategy(state);
+	        break;
+
+	    case TFT_STATIONARY:
+	    case PAVLOV_STATIONARY:
+	        stationaryStrategy(state);
+	        break;
+	    }
 	}
 
 	/**
@@ -470,10 +476,21 @@ public class Agent implements Steppable {
 			state.gui.setOvalPortrayal2DColor(a, (float) 1, (float) 0.6, (float) 0, (float) 1);
 			break;
                                                  //red,      60% green,  no blue,  solid --> result is orang
-			//TODO: you will need to add case statements to color the different strategies. 
-			//You can, for example, go to https://rgbcolorpicker.com/ to try out colors. RGB is listed
-			//as 0 to 255, so for walk away defector you would enter 1 * 255 = 255, 0.6 * 255 = 153, 0 * 255 = 0
-			//For example, purple is (float)0.5, (float) 0.5, (float) 0, (float) 1 or 128, 128, 0, 1
+		case TFT_MOBILE:
+			state.gui.setOvalPortrayal2DColor(a, (float) 1, (float) 0, (float) 0.6, (float) 1);
+		    break;
+
+		case TFT_STATIONARY:
+			state.gui.setOvalPortrayal2DColor(a, (float) 1, (float) 0, (float) 1, (float) 1);
+		    break;
+
+		case PAVLOV_MOBILE:
+			state.gui.setOvalPortrayal2DColor(a, (float) 1, (float) 1, (float) 0, (float) 1);
+		    break;
+
+		case PAVLOV_STATIONARY:
+			state.gui.setOvalPortrayal2DColor(a, (float) 0, (float) 0.6, (float) 1, (float) 1);
+		    break;
 
 		default:
 			state.gui.setOvalPortrayal2DColor(a, (float) 1, (float) 1, (float) 1, (float) 1);
