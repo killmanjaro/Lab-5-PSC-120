@@ -206,6 +206,8 @@ public class Agent implements Steppable {
 		case TFT_STATIONARY:
 		case PAVLOV_MOBILE:
 		case PAVLOV_STATIONARY:
+		case GRIM_MOBILE:
+		case GRIM_STATIONARY:
 			memory.storeMemory(opponent, myOpponentStrategy, myStrategy);
 			break;
 		default:
@@ -342,6 +344,14 @@ public class Agent implements Steppable {
 	    case PAVLOV_STATIONARY:
 	        stationaryStrategy(state);
 	        break;
+
+		case GRIM_MOBILE:
+    		mobileStrategy(state);
+    		break;
+
+	    case GRIM_STATIONARY:
+    		stationaryStrategy(state);
+    		break;
 	    }
 	}
 
@@ -512,6 +522,16 @@ public class Agent implements Steppable {
 		case PAVLOV_STATIONARY:
 			state.gui.setOvalPortrayal2DColor(a, (float) 0, (float) 0.6, (float) 1, (float) 1);
 		    break;
+
+	    case GRIM_MOBILE:
+        	state.gui.setOvalPortrayal2DColor(a,
+            (float)0.5, (float)0.0, (float)0.5, (float)1);
+            break;
+
+       case GRIM_STATIONARY:
+       		state.gui.setOvalPortrayal2DColor(a,
+            (float)0.3, (float)0.3, (float)0.3, (float)1);
+    		break;
 
 		default:
 			state.gui.setOvalPortrayal2DColor(a, (float) 1, (float) 1, (float) 1, (float) 1);
