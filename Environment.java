@@ -418,7 +418,7 @@ public class Environment extends SimStateSweep {
 		for(int i=0;i<this._tftMobile;i++) {
 			Int2D location;
 			if(!this.groups_or_patches)
-				location = uniqueXY();
+				location = emptyXY();
 			else
 				location = locationXY();
 			int xdir = random.nextInt(3)-1;
@@ -433,7 +433,7 @@ public class Environment extends SimStateSweep {
 		for(int i=0;i<this._tftStationary;i++) {
 			Int2D location;
 			if(!groups_or_patches)
-				location = uniqueXY();
+				location = emptyXY();
 			else
 				location = locationXY();
 			int xdir = random.nextInt(3)-1;
@@ -448,7 +448,7 @@ public class Environment extends SimStateSweep {
 		for(int i=0;i<this._pavlovMobile;i++) {
 			Int2D location;
 			if(!groups_or_patches)
-				location = uniqueXY();
+				location = emptyXY();
 			else
 				location = locationXY();
 			int xdir = random.nextInt(3)-1;
@@ -463,7 +463,7 @@ public class Environment extends SimStateSweep {
 		for(int i=0;i<this._pavlovStationary;i++) {
 			Int2D location;
 			if(!groups_or_patches)
-				location = uniqueXY();
+				location = emptyXY();
 			else
 				location = locationXY();
 			int xdir = random.nextInt(3)-1;
