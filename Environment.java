@@ -425,7 +425,7 @@ public class Environment extends SimStateSweep {
 			int ydir = random.nextInt(3)-1;
 			double resources = (maxResourcesStart-minResourcesStart)*random.nextDouble()+minResourcesStart;
 			long id = this.id++;
-			Agent agent = new Agent(this,id,Strategy.TFTM,resources,location.x,location.y,xdir,ydir,true);
+			Agent agent = new Agent(this,id,Strategy.TFT_MOBILE,resources,location.x,location.y,xdir,ydir,true);
 			agent.event = schedule.scheduleRepeating(agent);
 			sparseSpace.setObjectLocation(agent,random.nextInt(gridWidth), random.nextInt(gridHeight));
 			agent.colorByStrategy(agent.strategy, this, agent);
@@ -440,7 +440,7 @@ public class Environment extends SimStateSweep {
 			int ydir = random.nextInt(3)-1;
 			double resources = (maxResourcesStart-minResourcesStart)*random.nextDouble()+minResourcesStart;
 			long id = this.id++;
-			Agent agent = new Agent(this,id,Strategy.TFTS,resources,location.x,location.y,xdir,ydir,true);
+			Agent agent = new Agent(this,id,Strategy.TFT_STATIONARY,resources,location.x,location.y,xdir,ydir,true);
 			agent.event = schedule.scheduleRepeating(agent);
 			sparseSpace.setObjectLocation(agent,random.nextInt(gridWidth), random.nextInt(gridHeight));
 			agent.colorByStrategy(agent.strategy, this, agent);
@@ -455,7 +455,7 @@ public class Environment extends SimStateSweep {
 			int ydir = random.nextInt(3)-1;
 			double resources = (maxResourcesStart-minResourcesStart)*random.nextDouble()+minResourcesStart;
 			long id = this.id++;
-			Agent agent = new Agent(this,id,Strategy.PAVLOVM,resources,location.x,location.y,xdir,ydir,true);
+			Agent agent = new Agent(this,id,Strategy.PAVLOV_MOBILE,resources,location.x,location.y,xdir,ydir,true);
 			agent.event = schedule.scheduleRepeating(agent);
 			sparseSpace.setObjectLocation(agent,random.nextInt(gridWidth), random.nextInt(gridHeight));
 			agent.colorByStrategy(agent.strategy, this, agent);
@@ -470,7 +470,7 @@ public class Environment extends SimStateSweep {
 			int ydir = random.nextInt(3)-1;
 			double resources = (maxResourcesStart-minResourcesStart)*random.nextDouble()+minResourcesStart;
 			long id = this.id++;
-			Agent agent = new Agent(this,id,Strategy.PAVLOVS,resources,location.x,location.y,xdir,ydir,true);
+			Agent agent = new Agent(this,id,Strategy.PAVLOV_STATIONARY,resources,location.x,location.y,xdir,ydir,true);
 			agent.event = schedule.scheduleRepeating(agent);
 			sparseSpace.setObjectLocation(agent,random.nextInt(gridWidth), random.nextInt(gridHeight));
 			agent.colorByStrategy(agent.strategy, this, agent);
