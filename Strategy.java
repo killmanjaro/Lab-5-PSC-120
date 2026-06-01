@@ -10,6 +10,8 @@ public enum Strategy {
 	TFT_STATIONARY (6.0),
 	PAVLOV_MOBILE (7.0),
 	PAVLOV_STATIONARY (8.0);
+	GRIM_MOBILE (9.0),
+	GRIM_STATIONARY (10.0);
 	/**
 	 * This defines the strategy id
 	 */
