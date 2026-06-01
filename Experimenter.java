@@ -134,7 +134,7 @@ public class Experimenter extends Observer {
 		}
 	}
 	
-	public void strategyDistribution() {
+	public void strategyDistribution(Environment State) {
 		Bag agents = state.sparseSpace.getAllObjects();
 	    double[] data = new double[agents.numObjs];
 	    for(int i = 0; i < agents.numObjs; i++) {
