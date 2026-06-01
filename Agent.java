@@ -55,6 +55,8 @@ public class Agent implements Steppable {
 		case TFT_STATIONARY:
 		case PAVLOV_MOBILE:
 		case PAVLOV_STATIONARY:
+		case GRIM_MOBILE:
+		case GRIM_STATIONARY:
 			memory = new Memory(state.memorySize);
 			break;
 		default:
@@ -84,7 +86,9 @@ public class Agent implements Steppable {
 		case PAVLOV_MOBILE:    // fall through
 		case PAVLOV_STATIONARY:
 			return getStrategyPAVLOV(opponent);
-
+		case GRIM_MOBILE:
+		case GRIM_STATIONARY:
+			return getStrategyGRIM(opponent);
 		default: //just in case there are no matches, return cooperate, which should not happen
 			return Strategy.COOPERATOR;
 		}
@@ -141,6 +145,23 @@ public class Agent implements Steppable {
 		default:
 			return Strategy.COOPERATOR;
 		}
+	}
+
+	public Strategy getStrategyGRIM(Agent opponent) {
+    	Triple m = memory.getLastMemory(opponent);
+
+    	// Never met this opponent before
+    	if (m == null) {
+        	return Strategy.COOPERATOR;
+    	}
+
+    	// If opponent defected in the last remembered interaction,
+    	// continue defecting forever.
+    	if (m.opponentStrategy == Strategy.DEFECTOR) {
+        	return Strategy.DEFECTOR;
+    	}
+
+    	return Strategy.COOPERATOR;
 	}
 
 
