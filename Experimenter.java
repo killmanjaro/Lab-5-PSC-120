@@ -15,6 +15,8 @@ public class Experimenter extends Observer {
 	public int tfts = 0;
 	public int pavlovm = 0;
 	public int pavlovs = 0;
+	public int grimm = 0;
+	public int grims = 0;
 
 	/**
 	 * If this is called, the experimenter is removed from the schedule
@@ -62,7 +64,14 @@ public class Experimenter extends Observer {
 
 			case PAVLOV_STATIONARY:
 			    pavlovs++;
-			    break;		
+			    break;
+			case GRIM_MOBILE:
+			    grimm++;
+			    break;
+
+			case GRIM_STATIONARY:
+			    grims++;
+			    break;
 			}
 		}
 	}
