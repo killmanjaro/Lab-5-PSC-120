@@ -1,4 +1,4 @@
-kage evolutionaryGames;
+package evolutionaryGames;
 
 import java.util.ArrayList;
 
