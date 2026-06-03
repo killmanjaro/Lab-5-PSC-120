@@ -492,43 +492,53 @@ public class Agent implements Steppable {
 	public void colorByStrategy(Strategy strategy, Environment state, Agent a) {
 		switch (strategy) {
 		case COOPERATOR:
+			// blue
 			state.gui.setOvalPortrayal2DColor(a, (float) 0, (float) 0, (float) 1, (float) 1);
 			                                     //no red,  , no green, blue,     solid color
 			break;
 		case DEFECTOR:
+			// red
 			state.gui.setOvalPortrayal2DColor(a, (float) 1, (float) 0, (float) 0, (float) 1);
 			                                     //red,     no green,  no blue,   solid color
 			break;
+			// green
 		case WALKAWAY_COOPERATOR:
 			state.gui.setOvalPortrayal2DColor(a, (float) 0, (float) 1, (float) 0, (float) 1);
 			                                     //no red,   green,     no blue,   solid
 			break;
 		case WALKAWAY_DEFECTOR:
+			// orange
 			state.gui.setOvalPortrayal2DColor(a, (float) 1, (float) 0.6, (float) 0, (float) 1);
 			break;
                                                  //red,      60% green,  no blue,  solid --> result is orang
 		case TFT_MOBILE:
+			//
 			state.gui.setOvalPortrayal2DColor(a, (float) 1, (float) 0, (float) 0.6, (float) 1);
 		    break;
 
 		case TFT_STATIONARY:
+			// pink
 			state.gui.setOvalPortrayal2DColor(a, (float) 1, (float) 0, (float) 1, (float) 1);
 		    break;
 
 		case PAVLOV_MOBILE:
+			// light yellow
 			state.gui.setOvalPortrayal2DColor(a, (float) 1, (float) 1, (float) 0, (float) 1);
 		    break;
 
 		case PAVLOV_STATIONARY:
+			// light blue
 			state.gui.setOvalPortrayal2DColor(a, (float) 0, (float) 0.6, (float) 1, (float) 1);
 		    break;
 
 	    case GRIM_MOBILE:
+	    	// dark purple
         	state.gui.setOvalPortrayal2DColor(a,
             (float)0.5, (float)0.0, (float)0.5, (float)1);
             break;
 
        case GRIM_STATIONARY:
+    	   // black
        		state.gui.setOvalPortrayal2DColor(a,
             (float)0.3, (float)0.3, (float)0.3, (float)1);
     		break;
