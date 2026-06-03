@@ -16,7 +16,7 @@ public class Environment extends SimStateSweep {
 	public int _pavlovMobile = 0;// initial number of pavlov mobile
 	public int _pavlovStationary = 0;// initial number of pavlov stationary
 	public int _grimMobile = 0;
-	public int _girmStationary = 0;
+	public int _grimStationary = 0;
 	public int memorySize = 3; //size of an agent's memory of TFT and PAVLOV strategies
 	public double active = 1.0; //probability of random movement
 	public boolean groups_or_patches = false; //Multiple agents can be in the same location or what we will call group
@@ -343,6 +343,9 @@ public class Environment extends SimStateSweep {
 		if(_walkawayCooperators > 0) {
 			mutationList.add(Strategy.WALKAWAY_COOPERATOR);
 		}
+		if(_walkawayDefectors > 0) {
+			mutationList.add(Strategy.WALKAWAY_DEFECTOR);
+		}
 		if(_tftMobile > 0) {
 			mutationList.add(Strategy.TFT_MOBILE);
 		}
@@ -355,14 +358,17 @@ public class Environment extends SimStateSweep {
 		if(_pavlovStationary  > 0) {
 			mutationList.add(Strategy.PAVLOV_STATIONARY);
 		}
-		
-		  //TODO:fill in the if then statements for TFTM, TFTS, PAVLOVM, and PAVLOVS
-		
+		if(_grimMobile > 0) {
+			mutationList.add(Strategy.GRIM_MOBILE);
+		}
+		if(_grimStationary > 0) {
+			mutationList.add(Strategy.GRIM_STATIONARY);
+		}
 	}
 	
 	public void makeAgents() {
 		if(!groups_or_patches) {
-			int total =  _cooperators + _defectors + _walkawayCooperators + _tftMobile + _tftStationary + _pavlovMobile + _pavlovStationary + _walkawayDefectors;
+			int total =  _cooperators + _defectors + _walkawayCooperators + _tftMobile + _tftStationary + _pavlovMobile + _pavlovStationary + _walkawayDefectors + _grimMobile + _grimStationary;
 			//total = all the agents in a simulation
 			int total2 = gridWidth * gridHeight;// find the total number of locations or cells
 			if(total > total2) {

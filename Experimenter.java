@@ -91,6 +91,8 @@ public class Experimenter extends Observer {
 		tfts = 0;
 		pavlovm = 0;
 		pavlovs = 0;
+		grimm = 0;
+		grims = 0;
 		return true;
 	}
 	
@@ -101,7 +103,7 @@ public class Experimenter extends Observer {
 	 */
 	
 	public boolean nextInterval() {
-		double total = cooperators+defectors+walkaways+walkawaysD+ tftm+tfts+pavlovm+pavlovs;
+		double total = cooperators+defectors+walkaways+walkawaysD+ tftm+tfts+pavlovm+pavlovs+grimm+grims;
 		data.add(total);
 		data.add(cooperators/total);
 		data.add(defectors/total);
@@ -111,6 +113,8 @@ public class Experimenter extends Observer {
 		data.add(tfts/total);
 		data.add(pavlovm/total);
 		data.add(pavlovs/total);
+		data.add(grimm/total);
+		data.add(grims/total);
 		 
 		return false;
 	}
