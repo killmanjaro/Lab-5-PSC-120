@@ -77,6 +77,10 @@ public class Environment extends SimStateSweep {
 		this._walkawayDefectors = _walkawayDefectors;
 	}
 
+	public int get_tftMobile() {
+		return _tftMobile;
+	}
+	
 	public void set_tftMobile(int _tftMobile) {
 		this._tftMobile = _tftMobile;
 	}
